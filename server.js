@@ -1,9 +1,21 @@
-const express = require("express");
-const port = process.env.PORT || 8080;
+var express = require("express");
+var bodyParser = require("body-parser");
+var exphbs = require("express-handlebars");
 
+var app = express();
+var PORT = process.env.PORT || 9000;
 
+app.use(express.static("public"));
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.listen(port, function() {
-    console.log(`Now listening to port ${port}. Enjoy your stay!`);
-})
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+var routes = require("./Burger/controllers/burgers_controller");
+app.use(routes);
+
+app.listen(PORT, function() {
+  console.log("Server listening on: http://localhost:" + PORT);
+});
