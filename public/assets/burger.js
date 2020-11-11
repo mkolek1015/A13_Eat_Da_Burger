@@ -6,11 +6,12 @@ $(function () {
       burger_name: $("#newburger").val().trim(),
       devoured: 0,
     };
-
+    
+    
     $.ajax("/api/burgers", {
       type: "POST",
       data: newBurger,
-    }).then(function () {
+    }).then(function (res) {
       console.log("Added new burger");
       location.reload();
     });
